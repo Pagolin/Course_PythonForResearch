@@ -94,7 +94,7 @@ print(stats[stats.Language == "Portuguese"])
 plt.plot(stats.Length, stats.Unique_Words, "bo")
 
 plt.figure(figsize=(10,10))
-subset = stats[stats.Language == "English"]
+subset = stats[stats.Language == "English" and stats.Title == "Hamlet"]
 plt.loglog(subset.Length, subset.Unique_Words, "o", label ="English", color= "crimson")
 subset = stats[stats.Language == "French"]
 plt.loglog(subset.Length, subset.Unique_Words, "o", label ="French", color= "forestgreen")
