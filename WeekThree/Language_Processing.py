@@ -24,7 +24,7 @@ And now the advanced version
 from collections import Counter
 def count_words_fast(text):
     text = text.lower()
-    escape = (",",".",";",":","'",'"')
+    escape = str.punctuation
     for ch in escape:
         text = text.replace(ch, " ")
 
@@ -94,8 +94,8 @@ print(stats[stats.Language == "Portuguese"])
 plt.plot(stats.Length, stats.Unique_Words, "bo")
 
 plt.figure(figsize=(10,10))
-subset = stats[stats.Language == "English" and stats.Title == "Hamlet"]
-plt.loglog(subset.Length, subset.Unique_Words, "o", label ="English", color= "crimson")
+subset = stats[stats.Language == "English"]
+plt.loglog(subset.Length, subset.Unique_Words, "o-", label ="English", color= "crimson")
 subset = stats[stats.Language == "French"]
 plt.loglog(subset.Length, subset.Unique_Words, "o", label ="French", color= "forestgreen")
 subset = stats[stats.Language == "German"]
