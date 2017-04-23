@@ -70,13 +70,52 @@ def generate_synthetic_data(nr_obs=50):
     @:param: nr_obs Number of observations, i.e. points in each class"""
     cat1= ss.norm(0, 1).rvs((nr_obs, 2))
     cat2= ss.norm(1, 1).rvs((nr_obs, 2))
+    #cat3= ss.norm(4, 3).rvs((nr_obs, 2))
     points = np.concatenate((cat1, cat2), axis = 0)
     outcomes = np.concatenate((np.repeat(0,nr_obs), np.repeat(1,nr_obs)))
     return (points, outcomes)
 
+def make_prediction_grid(predictors, predictor_classes, limits, h, k):
+    """
+    Classify each point in a generated prediction grid according to provided predictor points and corresponding classes
+    :param limits: four tuple (Int, Int, Int, Int) for (x_min, x_max, y_min, y_max) grid dimension
+    :param predictors np.array of classified points
+    :param predictor_classes np.array of classifications for predictor points
+    :return: three-tuple (xx, yy, prediction grid), grid of predicted point classes and two arrays containing their x- and y-coordinates in the np.meshgrid
+    """
+    (x_min, x_max, y_min, y_max) = limits
+    xs = np.arange(x_min, x_max, h)
+    ys = np.arange(y_min, y_max, h)
+    xx, yy = np.meshgrid(xs, ys)
+    #store the predicted classes {0,1} in prediction grid
+    prediction_grid = np.zeros(xx.shape, dtype=int)
+    #loop over the 1D-Datapoint array and predict their class, enumerate gives us the index locations of x and y in the respective vectors
+    for i,x in enumerate(xs):
+        for j,y in enumerate(ys):
+            #generate a point p with current x and y values
+            p= np.array([x,y])
+            prediction_grid[j,i]= knn_predict(p, predictors, predictor_classes, k)
+    return (xx, yy, prediction_grid)
 
 
-
+"""Example: enumerate()
+    seasons = ["spring","summer","fall","winter"]
+    list(enumerate(seasons)) => [(1, 'spring'),(2, 'summer'),(3, 'fall'),(4, 'winter')]
+"""
+def plot_prediction_grid (xx, yy, prediction_grid, filename, predictors, predictor_classes):
+    """ Plot KNN predictions for every point on the grid."""
+    from matplotlib.colors import ListedColormap
+    background_colormap = ListedColormap (["hotpink","lightskyblue", "yellowgreen"])
+    observation_colormap = ListedColormap (["red","blue","green"])
+    plt.figure(figsize =(10,10))
+    plt.pcolormesh(xx, yy, prediction_grid, cmap = background_colormap, alpha = 0.5)
+    plt.scatter(predictors[:,0], predictors [:,1], c = predictor_classes, cmap = observation_colormap, s = 50)
+    plt.xlabel('Variable 1'); plt.ylabel('Variable 2')
+    plt.xticks(()); plt.yticks(())
+    plt.xlim (np.min(xx), np.max(xx))
+    plt.ylim (np.min(yy), np.max(yy))
+    plt.savefig(filename)
+"""
 #'testdataset'
 points= np.array([[1,1],[1,2],[1,3],[2,1],[2,2],[2,3],[3,1],[3,2,],[3,3]])
 p = np.array([2.5, 2])
@@ -90,15 +129,26 @@ plt.plot(p[0], p[1], "bo")
 plt.axis([0.5, 3.5, 0.5, 3.5])
 
 #plot synthetic data
-n = 20
+n = 50
 (synpoints, outcomes) = generate_synthetic_data(n)
 plt.figure()
 #first category  in synpoints from 0 to n-1
 plt.plot(synpoints[:n,0], synpoints[:n,1], "ro")
 #second category from n to 2n -1
-plt.plot(synpoints[n:,0], synpoints[n:,1], "bo")
+plt.plot(synpoints[n:(2*n),0], synpoints[n:(2*n),1], "s", markersize=7,
+markeredgewidth=1,markeredgecolor='#b55f1a', markerfacecolor='None')
+plt.plot(synpoints[(2*n):,0], synpoints[(2*n):,1], "g^")
 plt.savefig('synData.pdf')
-
+plt.show()
 votes= [1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,5,5]
 print(knn_predict(p, points,point_classes, 3))
 #print(majority_vote(votes), majority_vote_short(votes))
+
+(synpoints, outcomes) = generate_synthetic_data(100)
+k=10
+filename= "knn_synth_10.pdf"
+meshlimits = (-3, 4, -3, 4)
+stepwidth = 0.1
+(xx, yy, prediction_grid) = make_prediction_grid(synpoints, outcomes, meshlimits, stepwidth, k)
+plot_prediction_grid(xx, yy, prediction_grid, filename, synpoints, outcomes)
+"""
