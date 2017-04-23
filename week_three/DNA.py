@@ -1,4 +1,4 @@
-inputfile = "../WeekThree/translation/dna.txt"
+inputfile = "../week_three/translation/dna.txt"
 
 def read_seq(inputfile):
     with open(inputfile, "r") as f:

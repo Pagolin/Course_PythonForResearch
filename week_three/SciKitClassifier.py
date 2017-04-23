@@ -1,8 +1,12 @@
+"""This case study exemplifies classification of 150 irirs flowers into three species based on different size measures
+"""
+
 from sklearn import datasets
 from sklearn.neighbors import KNeighborsClassifier
 import matplotlib.pyplot as plt
-import WeekThree.Classification as my_cl
+import week_three.Classification as my_cl
 import  numpy as np
+
 
 #iris is an example dataset for classification of 150 iris flowers into three species
 iris = datasets.load_iris()

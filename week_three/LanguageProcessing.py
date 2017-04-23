@@ -51,7 +51,7 @@ def word_stats(word_counts):
     counts = word_counts.values()
     return (num_unique, counts)
 
-book_dir = "../WeekThree/books"
+book_dir = "../week_three/books"
 
 #using os to loop through directories
 #using pandas to create a DataFrame
@@ -76,11 +76,11 @@ def get_books_from_dir(dir):
 
 
 """
-text = read_book("../WeekThree/books/English/shakespeare/Romeo and Juliet.txt")
+text = read_book("../week_three/books/English/shakespeare/Romeo and Juliet.txt")
 word_counts = count_words(text)
 (nr_of_unique_words, frequencies) = word_stats(word_counts)
 
-g_text = read_book("../WeekThree/books/German/shakespeare/Romeo und Julia.txt")
+g_text = read_book("../week_three/books/German/shakespeare/Romeo und Julia.txt")
 g_word_counts = count_words(g_text)
 (nr_of_unique_g_words, g_frequencies) = word_stats(g_word_counts)
 
