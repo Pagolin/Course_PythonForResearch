@@ -56,5 +56,28 @@ model = SpectralCoclustering(n_clusters=6, random_state=0) #create the moel obje
 model.fit(corr_whisky)
 whiskies_per_region = np.sum(model.rows_, axis=1) #observation per cluster
 regions_per_whisky = np.sum(model.rows_, axis=0) #clusters per observation
+
+whisky['Group'] = pd.Series(model.row_labels_, index=whisky.index) # extract group-labels from the model
+whisky = whisky.ix[np.argsort(model.row_labels_)]#reorder the rows of whisky according to their groups-labels
+whisky = whisky.reset_index(drop=True)
+
+#recalculate correlation matrix
+
+corr_whisky_clustered = pd.DataFrame.corr(whisky.iloc[:, 2:14].transpose())
+corr_whisky_clustered = np.array(corr_whisky_clustered)
+
+#compare clustered an unclustered correlation
+plt.figure(figsize=(14, 7))
+plt.subplot(121)
+plt.pcolor(corr_whisky)
+plt.title("Unclustered")
+plt.axis("tight")
+plt.subplot(122)
+plt.pcolor(corr_whisky_clustered)
+plt.title("Clustered")
+plt.axis("tight")
+plt.savefig("correlation_compare.pdf")
+
+
 print(whiskies_per_region)
 print(regions_per_whisky)
