@@ -105,6 +105,6 @@ plt.loglog(subset.Length, subset.Unique_Words, "o", label ="Portuguese", color= 
 plt.legend()
 plt.xlabel("Book length")
 plt.ylabel("Number of unique words")
-plt.savefig("lang_plot.pdf")
+plt.savefig("./plots/lang_plot.pdf")
 
 plt.show()

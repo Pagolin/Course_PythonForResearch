@@ -114,7 +114,8 @@ def plot_prediction_grid (xx, yy, prediction_grid, filename, predictors, predict
     plt.xticks(()); plt.yticks(())
     plt.xlim (np.min(xx), np.max(xx))
     plt.ylim (np.min(yy), np.max(yy))
-    plt.savefig(filename)
+    path = "./plots/"
+    plt.savefig(path+filename)
 """
 #'testdataset'
 points= np.array([[1,1],[1,2],[1,3],[2,1],[2,2],[2,3],[3,1],[3,2,],[3,3]])
@@ -127,7 +128,7 @@ point_classes=np.array([0,0,0,0,0,1,1,1,1])
 plt.plot(points[:,0], points[:,1], "ro")
 plt.plot(p[0], p[1], "bo")
 plt.axis([0.5, 3.5, 0.5, 3.5])
-
+"""
 #plot synthetic data
 n = 50
 (synpoints, outcomes) = generate_synthetic_data(n)
@@ -138,10 +139,9 @@ plt.plot(synpoints[:n,0], synpoints[:n,1], "ro")
 plt.plot(synpoints[n:(2*n),0], synpoints[n:(2*n),1], "s", markersize=7,
 markeredgewidth=1,markeredgecolor='#b55f1a', markerfacecolor='None')
 plt.plot(synpoints[(2*n):,0], synpoints[(2*n):,1], "g^")
-plt.savefig('synData.pdf')
+plt.savefig('./plots/synData.pdf')
 plt.show()
-votes= [1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,5,5]
-print(knn_predict(p, points,point_classes, 3))
+
 #print(majority_vote(votes), majority_vote_short(votes))
 
 (synpoints, outcomes) = generate_synthetic_data(100)
@@ -151,4 +151,3 @@ meshlimits = (-3, 4, -3, 4)
 stepwidth = 0.1
 (xx, yy, prediction_grid) = make_prediction_grid(synpoints, outcomes, meshlimits, stepwidth, k)
 plot_prediction_grid(xx, yy, prediction_grid, filename, synpoints, outcomes)
-"""

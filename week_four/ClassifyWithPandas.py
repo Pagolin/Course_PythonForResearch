@@ -34,7 +34,7 @@ corr_flavors = pd.DataFrame.corr(flavors)
 plt.figure(figsize=(10, 10))
 plt.pcolor(corr_flavors)
 plt.colorbar()
-plt.savefig("flavor_correlation.pdf")
+plt.savefig("./whisky_plots/flavor_correlation.pdf")
 
 #get the correlation among whiskies
 corr_whisky = pd.DataFrame.corr(flavors.transpose())
@@ -43,7 +43,7 @@ plt.figure(figsize=(10, 10))
 plt.pcolor(corr_whisky)
 plt.axis("tight") #Limit axis to available data, i.e. no white spaces at axis ends
 plt.colorbar()
-plt.savefig("whisky_correlation.pdf")
+plt.savefig("./whisky_plots/whisky_correlation.pdf")
 
 """Spectral co-clustering 
 -> finding corresponding clusters in related data i.e. sets of words occureíng together in particulsr sets of tests
@@ -76,7 +76,7 @@ plt.subplot(122)
 plt.pcolor(corr_whisky_clustered)
 plt.title("Clustered")
 plt.axis("tight")
-plt.savefig("correlation_compare.pdf")
+plt.savefig("./whisky_plots/correlation_compare.pdf")
 
 
 print(whiskies_per_region)

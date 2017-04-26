@@ -18,7 +18,7 @@ plt.plot(predictors[outcomes==0][:, 0], predictors[outcomes==0][:, 1], "ro")
 plt.plot(predictors[outcomes==1][:, 0], predictors[outcomes==0][:, 1], "go")
 plt.plot(predictors[outcomes==2][:, 0], predictors[outcomes==0][:, 1], "bo")
 
-plt.savefig("iris.pdf")
+plt.savefig("./plots/iris.pdf")
 
 # Classify with handmade function
 k=5; filename= "iris_grid.pdf"; meshlimits = (4, 8, 1.5, 4.5); stepwidth = 0.1
