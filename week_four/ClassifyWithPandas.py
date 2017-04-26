@@ -52,14 +52,14 @@ e.g. find co-clustering properties for the six regional clusters the whiskies co
 """
 from sklearn.cluster.bicluster import SpectralCoclustering
 
-model = SpectralCoclustering(n_clusters=6, random_state=0) #create the moel object
+model = SpectralCoclustering(n_clusters=6, random_state=0) #create the model object
 model.fit(corr_whisky)
 whiskies_per_region = np.sum(model.rows_, axis=1) #observation per cluster
 regions_per_whisky = np.sum(model.rows_, axis=0) #clusters per observation
 
 whisky['Group'] = pd.Series(model.row_labels_, index=whisky.index) # extract group-labels from the model
 whisky = whisky.ix[np.argsort(model.row_labels_)]#reorder the rows of whisky according to their groups-labels
-whisky = whisky.reset_index(drop=True)
+whisky = whisky.reset_index(drop=True) # reset index reindexes the sorted elements from 0 to...
 
 #recalculate correlation matrix
 
