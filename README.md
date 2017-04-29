@@ -16,10 +16,16 @@ The examples are derived from/presented in the course 'Using Python for Research
 
 #Week 3 Case Studies
 * DNA Translation
+- translating DNA to protein sequence
 * Language Processing
+- Calculate and plot statistics for word usage in books
 * Introduction to Classification
+- Introduction to kNearest-Neighbors classification and random walk
 
 #Week 4: Case Studies
 * Classifying Whiskies
-* Bird Migration
+- Clustering data with pandas 
+* Bird Migration 
+- Working with timestamps
+- Using cartopy
 * Social Network Analysis

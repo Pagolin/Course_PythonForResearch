@@ -75,8 +75,9 @@ bird_data["timestamp"] = pd.Series(timestamps, index=bird_data.index)
 #print(bird_data.head())
 
 # Calculate elapsed time since the first observation for the data of Eric
-times = bird_data.timestamp[Eric_index]
-elapsed_times = [time - times[0] for time in times]
+eric_data = bird_data[bird_data.bird_name=="Eric"]
+eric_times = eric_data.timestamp
+elapsed_times = [time - eric_times[0] for time in eric_times]
 
 # To get the times in a particular unit i.e. hours, days etc. divide timestamp object by a timedelta object
 # As elapsed_times is a numpy array division is done elementwise without list comprehension
@@ -84,8 +85,62 @@ elapsed_times = [time - times[0] for time in times]
 elapsed_days = np.array(elapsed_times)/datetime.timedelta(days=1)
 print(elapsed_times[0:3])
 print(elapsed_days[0:3])
+
+
+"""Calculating mean daily speed -> Working with timestamps"""
+
+next_day = 1
+inds=[]
+daily_mean_speed=[]
+#Reminder enumerate returns (index, value) tuples
+for (i, t) in enumerate(elapsed_days):
+    if t < next_day:
+        inds.append(i)
+    else:
+        daily_mean_speed.append(np.mean(eric_data.speed_2d[inds]))
+        next_day += 1
+        inds = []
+
+plt.figure(figsize=(12,6))
+plt.subplot(121)
 plt.plot(elapsed_days)
+plt.title("Days between observations")
 plt.xlabel("Observation")
 plt.ylabel("Elapsed time in days")
-plt.savefig("./bird_plots/flight_times_Eric.pdf")
-#TODO: Explore the originin of the strange blue line distoring the plot
+plt.subplot(122)
+plt.plot(daily_mean_speed)
+plt.title("Daily mean speed")
+plt.xlabel("Day")
+plt.ylabel("Mean speed (m/s)")
+plt.savefig("./bird_plots/Speed_measures_Eric.pdf")
+
+"""
+Using Cartopy, a library with cartographic tools for python
+In contrast to the flight plot before, the one, constructed here is not spacial distorted but maps to the speric 
+ground, i.e. earth surface maps
+"""
+
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+
+# One type of global map projection in cartopy is mercator
+globe_map = ccrs.Mercator()
+plt.figure(figsize=(10,10))
+# Set the axes, extension and features of the map
+axes = plt.axes(projection= globe_map)
+axes.set_extent((-25.0, 20.0, 52.0, 10))
+axes.add_feature(cfeature.LAND)
+axes.add_feature(cfeature.OCEAN)
+axes.add_feature(cfeature.COASTLINE)
+axes.add_feature(cfeature.BORDERS, linestyle=':')
+
+for name in bird_names:
+    inds = bird_data['bird_name'] == name
+    x,y = bird_data.longitude[inds], bird_data.latitude[inds]
+    axes.plot(x, y,'.', transform=ccrs.Geodetic(), label=name )
+plt.legend(loc="upper left")
+plt.savefig("./bird_plots/flight_map.pdf")
+#TODO: Solve troubly with cartopy url.
+# Error:File "/home/lisza/Tools/anaconda3/lib/python3.6/urllib/request.py", line 1320, in do_open
+#   raise URLError(err)
+#urllib.error.URLError: <urlopen error [Errno -5] Zu diesem Hostnamen gehört keine Adresse>
