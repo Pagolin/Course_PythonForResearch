@@ -1,0 +1,49 @@
+
+This project contains code examples for statistical methods implementation in python using e.g. numpy, mathplotlib and pandas. The examples are derived from/presented in the course 'Using Python for Research' from edx.org Edit
+
+== Syllabus
+
+=== Week 1: Basics of Python 3
+
+*Part 1*: Objects and Methods
+
+*Part 2*: Sequence Objects
+
+*Part 3*: Manipulating Objects
+
+=== Week 2 Concepts and Libraries
+
+*Part 1*: Scope Rules and Classes
+
+*Part 2*: NumPy
+
+*Part 3*: Matplotlib and Pyplot
+
+*Part 4*: Randomness and Time
+
+=== Week 3 Case Studies Part 1
+
+*Case Study 1*: DNA Translation
+
+    translating DNA to protein sequence
+
+*Case Study 2*: Language Processing
+
+    Calculate and plot statistics for word usage in books
+
+*Case Study 3*: Introduction to Classification
+
+    Introduction to kNearest-Neighbors classification and random walk
+
+=== Week 4: Case Studies Part 2
+
+*Case Study 4*: Classifying Whiskies
+
+    Clustering data with pandas
+
+*Case Study 5*: Bird Migration
+
+    Working with timestamps
+    Using cartopy
+
+*Case Study 6*: Social Network Analysis
