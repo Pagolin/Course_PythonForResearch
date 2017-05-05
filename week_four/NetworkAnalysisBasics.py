@@ -92,8 +92,43 @@ plt.figure()
 plot_degree_distribution(G3)
 plt.savefig("./network_plots/degree_distribution.pdf")
 
+#plt.figure()
+#for i in range(3):
+#    GI= generate_ER_graph(500, 0.08)
+#    plot_degree_distribution(GI)
+#plt.savefig("./network_plots/many_degree_distributions.pdf")
+
+"""
+Descriptive Statistics of social networks
+"""
+import numpy as np
+
+#Import Adjacency matrices discribing the social relation in two indian villages
+A1= np.loadtxt("./network_data/adj_allVillageRelationships_vilno_1.csv", delimiter=",")
+A2= np.loadtxt("./network_data/adj_allVillageRelationships_vilno_2.csv", delimiter=",")
+
+G1 = nx.to_networkx_graph(A1)
+G2 = nx.to_networkx_graph(A2)
+G1.degree().values()
+
+def basic_net_stats(G):
+    print("Number of nodes: %d" %G.number_of_nodes())
+    print("Number of edges: %d" %G.number_of_edges())
+    print("Mean node degrees: %.2f" %np.mean(list(G.degree().values())))
+
+basic_net_stats(G1)
+basic_net_stats(G2)
 plt.figure()
-for i in range(3):
-    GI= generate_ER_graph(500, 0.08)
-    plot_degree_distribution(GI)
-plt.savefig("./network_plots/many_degree_distributions.pdf")
+plot_degree_distribution(G1)
+plot_degree_distribution(G2)
+plt.show()
+#Conclusion => ER graphs are not an appropriate approximation to social network graphs
+
+
+
+
+
+
+
+
+
