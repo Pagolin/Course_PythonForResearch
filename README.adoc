@@ -25,25 +25,28 @@ This project contains code examples for statistical methods implementation in py
 
 *Case Study 1*: DNA Translation
 
-    translating DNA to protein sequence
+** translating DNA to protein sequence
 
 *Case Study 2*: Language Processing
 
-    Calculate and plot statistics for word usage in books
+** Calculate and plot statistics for word usage in books
 
 *Case Study 3*: Introduction to Classification
 
-    Introduction to kNearest-Neighbors classification and random walk
+** Introduction to kNearest-Neighbors classification and random walk
 
 === Week 4: Case Studies Part 2
 
 *Case Study 4*: Classifying Whiskies
 
-    Clustering data with pandas
+** Clustering data with pandas
 
 *Case Study 5*: Bird Migration
 
-    Working with timestamps
-    Using cartopy
+** Working with timestamps
+** Using cartopy
 
 *Case Study 6*: Social Network Analysis
+
+** using the networkx library
+** visualizing basic network properties
